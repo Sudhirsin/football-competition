@@ -58,6 +58,7 @@ def user_login():
     users = []
     for user in results:
         users.append(user)
+            
     if len(users) != 0:
         for user in users:
             if user['password_hash'] == hash_cycle(user['salt'] + password):
