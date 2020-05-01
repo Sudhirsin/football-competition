@@ -86,7 +86,7 @@ def competitions():
     competitions = []
     for competition in results:
         competitions.append(competition)
-    return {"competitions": competition}
+    return {"competitions": competitions}
 
 
 # Get Teams Deatails

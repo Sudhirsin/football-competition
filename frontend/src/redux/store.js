@@ -1,9 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import authReducer from './authetication/reducer'
+import competitionsReducer from './competitions/reducer'
+import teamsReducer from './teams/reducer'
 
 const rootReducer = combineReducers({
-    'authReducer': authReducer
+    'authReducer': authReducer,
+    "competitionsReducer": competitionsReducer,
+    "teamsReducer": teamsReducer
 });
 
 

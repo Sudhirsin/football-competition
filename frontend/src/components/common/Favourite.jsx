@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 function Favourite() {
   return (
     <div className='col-lg-4 col-sm-12'>
-      <div class='card'>
+      <div class='card' style={{width: "250px", height: "250px", borderRadius: "50%"}}>
         <div class='card-body text-center'>
           <p>
             <img

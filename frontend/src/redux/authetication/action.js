@@ -7,7 +7,8 @@ import {
     USER_REGISTER_FAILURE,
     USER_LOGIN_REQUEST,
     USER_LOGIN_SUCCESS,
-    USER_LOGIN_FAILURE
+    USER_LOGIN_FAILURE,
+    LOGOUT
 } from './actionTypes'
 
 export const userRegisterRequest = (payload) => ({
@@ -81,3 +82,8 @@ export const userLogin = (payload) => {
             });
     }
 }
+
+// Logout
+export const logoutUser = () => ({
+    type: LOGOUT,
+})
