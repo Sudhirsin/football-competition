@@ -207,3 +207,11 @@ img {
   margin-bottom: 5px;
   color: white;
 }
+
+/* media */
+@media only screen and (max-width: 500px) {
+  .x-large {
+    font-size: 2rem;
+    
+  }
+}
