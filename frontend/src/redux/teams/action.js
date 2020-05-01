@@ -27,8 +27,8 @@ export const getTeams = (payload, token) => {
         return axios
             .post('http://127.0.0.1:5000/api/teams', payload, {
                 headers: {
-                    "Authorization": `bearer ${token}`,
-                    "Content-Type": "application/json" 
+                    "Authorization":`bearer ${token}`,
+                    "Content-Type": "application/json"
                 }
             })
             .then(res => {

@@ -6,6 +6,7 @@ import Favourite from "./Favourite";
 import { connect } from 'react-redux'
 import { getCompetitions } from '../../redux/competitions/action'
 import { getTeams } from '../../redux/teams/action'
+import queryString from 'query-string'
 
 
 class Home extends Component {
@@ -38,18 +39,21 @@ class Home extends Component {
 
   getTeams = async (e) => {
     // alert(e.target.value)
-    let competition_id = e.target.value
-    console.log(this.props.history.location.pathname)
+    let obj = {
+      competition_id: e.target.value
+    }
+
     if(this.props.token) {
-      await this.props.getTeams(competition_id, this.props.token)
+      await this.props.getTeams(obj, this.props.token)
     } else {
       alert('Please login first')
-      // this.props.history.push('/user/login')
+      this.props.history.push('/user/login')
     }
   }
 
   render() {
-    const { competitions } = this.props
+    const { competitions, teams } = this.props
+    console.log(teams)
     return (
       <Fragment>
           {/* Landing Page */}
@@ -82,7 +86,19 @@ class Home extends Component {
                   )
                 })}
               </div>
-              <Teams />
+
+
+              <div className="col-lg-6 col-sm-12 col-md-12">
+                <h4>Teams</h4>
+
+                { teams && teams.map(team => {
+                  return (
+                    <Teams 
+                      team={ team }
+                    />
+                  )
+                })}
+              </div>
             </div>
           </div>
         </section>
@@ -106,12 +122,13 @@ class Home extends Component {
 
 const mapStateToProps = (state) => ({
   competitions: state.competitionsReducer.competitions,
-  token: state.authReducer.token
+  token: state.authReducer.token,
+  teams: state.teamsReducer.teams
 })
 
 const mapDispatchToProps = dispatch => ({
   getCompetitions: () => dispatch(getCompetitions()),
-  getTeams: (payload) => dispatch(getTeams(payload))
+  getTeams: (payload, token) => dispatch(getTeams(payload, token))
 })
 
 

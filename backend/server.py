@@ -96,7 +96,7 @@ def get_teams():
     competition_id = request.json['competition_id']
     cursor = mysql.connection.cursor()
     cursor.execute(
-        """SELECT * FROM teams JOIN live_competitions ON live_competitions.team_id = teams.id where competition_id = 1"""
+        """SELECT * FROM teams JOIN live_competitions ON live_competitions.team_id = teams.id where competition_id = %s""", (competition_id,)
     )
     results = cursor.fetchall()
     cursor.close()

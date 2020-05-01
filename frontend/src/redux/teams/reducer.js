@@ -19,7 +19,9 @@ const teamsReducer = (state = initState, action) => {
             isLoading: false,
         }
 
-        case GET_TEAMS_SUCCESS: return {
+        case GET_TEAMS_SUCCESS: 
+        console.log(action.payload.teams)
+        return {
             ...state,
             isLoading: false,
             teams: action.payload.teams

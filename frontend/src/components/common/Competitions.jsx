@@ -10,7 +10,7 @@ export default class Competitions extends Component {
       address,
       id,
     } = this.props.competition;
-    
+
     return (
       <Fragment>
         <div className='col-lg-12 col-sm-12 col-md-12'>
@@ -40,14 +40,14 @@ export default class Competitions extends Component {
                   </div>
                   <p className='card-text'>Location:- {address}</p>
                   <div className='d-flex justify-content-between'>
-                    <Link
-                      to={`/competition/${id}`} 
+                    <button
+                      // to={`/competition/${id}`} 
                       className='btn btn-primary' 
                       value={id}
                       onClick={this.props.getTeams}
                     >
                       Details
-                    </Link>
+                    </button>
                     <button className='btn btn-primary'>Favourite</button>
                   </div>
                 </div>
