@@ -121,6 +121,30 @@ def team_detail():
     }
 
 
+# user favourite competitions
+@app.route('/api/users/competitions', methods=['POST'])
+def fav_competitions():
+    user_id = token_decoder()
+    competition_id = request.json['competition_id']
+    cursor = mysql.connection.cursor()
+    cursor.execute(
+        """SELECT count(id) as count FROM fav_competitions WHERE user_id = %s""", (user_id['id'],)
+    )
+    count_competitions = cursor.fetchall()
+
+    if count_competitions[0]['count'] < 3:
+        cursor.execute(
+            """INSERT INTO fav_competitions(competition_id, user_id) 
+            VALUES (%s, %s)""", (competition_id, user_id['id'])
+        )
+        mysql.connection.commit()      
+        cursor.close()
+        return {
+            "message": "Fav added",
+        }
+    else:
+        return { "message": "You can select max 3 favourite competitons only" }
+
 
 def hash_cycle(usr_str):
     for i in range(10):

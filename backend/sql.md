@@ -110,3 +110,9 @@ CREATE TABLE fav_competitions(
     FOREIGN KEY(user_id) REFERENCES users(id),
     FOREIGN KEY(competition_id) REFERENCES competitions(id)
 );
+
+
+<!-- insert competitions -->
+INSERT INTO fav_competitions(competition_id, user_id)
+VALUES (1, 1), (2, 1), (1, 2);
+
