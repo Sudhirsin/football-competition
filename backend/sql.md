@@ -116,3 +116,6 @@ CREATE TABLE fav_competitions(
 INSERT INTO fav_competitions(competition_id, user_id)
 VALUES (1, 1), (2, 1), (1, 2);
 
+
+<!-- To get fav competitions -->
+ SELECT competitions.name_competition FROM competitions JOIN fav_competitions ON competitions.id = fav_competitions.competition_id WHERE user_id = 2;

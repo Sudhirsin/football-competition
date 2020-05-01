@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import Teams from "./Teams";
 import Favourite from "./Favourite";
 import { connect } from 'react-redux'
-import { getCompetitions } from '../../redux/competitions/action'
+import { getCompetitions, makeFavouriteCompetition } from '../../redux/competitions/action'
 import { getTeams } from '../../redux/teams/action'
 import queryString from 'query-string'
 
@@ -38,7 +38,6 @@ class Home extends Component {
   }
 
   getTeams = async (e) => {
-    // alert(e.target.value)
     let obj = {
       competition_id: e.target.value
     }
@@ -51,9 +50,23 @@ class Home extends Component {
     }
   }
 
+  favouriteCompetition = async (e) => {
+    let obj = {
+      competition_id: e.target.value
+    }
+
+    if(this.props.token) {
+      await this.props.makeFavouriteCompetition(obj, this.props.token)
+    } else {
+      alert('Please login first')
+      this.props.history.push('/user/login')
+    }
+  }
+
   render() {
+
     const { competitions, teams } = this.props
-    console.log(teams)
+
     return (
       <Fragment>
           {/* Landing Page */}
@@ -82,6 +95,7 @@ class Home extends Component {
                     <Competitions 
                       competition={ competition }
                       getTeams={ this.getTeams }
+                      favouriteCompetition={ this.favouriteCompetition }
                     />
                   )
                 })}
@@ -128,7 +142,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   getCompetitions: () => dispatch(getCompetitions()),
-  getTeams: (payload, token) => dispatch(getTeams(payload, token))
+  getTeams: (payload, token) => dispatch(getTeams(payload, token)),
+  makeFavouriteCompetition: (payload, token) => dispatch(makeFavouriteCompetition(payload, token))
 })
 
 

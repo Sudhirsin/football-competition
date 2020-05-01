@@ -122,30 +122,48 @@ def team_detail():
 
 
 # user favourite competitions
-@app.route('/api/users/competitions', methods=['POST'])
+@app.route('/api/users/competitions', methods=['GET', 'POST'])
 def fav_competitions():
     user_id = token_decoder()
     competition_id = request.json['competition_id']
     cursor = mysql.connection.cursor()
     cursor.execute(
-        """SELECT count(id) as count FROM fav_competitions WHERE user_id = %s""", (user_id['id'],)
+        """SELECT fav_competitions.id, fav_competitions.competition_id, address, competitions.name_competition FROM 
+        competitions JOIN fav_competitions ON competitions.id = fav_competitions.competition_id 
+        WHERE user_id = %s""", (user_id['id'],)
     )
-    count_competitions = cursor.fetchall()
-
-    if count_competitions[0]['count'] < 3:
+    competitions = cursor.fetchall()
+    if len(competitions) < 3:
+        for data in competitions:
+            if data["competition_id"] == competition_id:
+                return {
+                    "messasge": "Already marked favourite",
+                    "favourite_competitions":competitions
+                }
         cursor.execute(
             """INSERT INTO fav_competitions(competition_id, user_id) 
             VALUES (%s, %s)""", (competition_id, user_id['id'])
         )
         mysql.connection.commit()      
+
+        cursor.execute(
+            """SELECT fav_competitions.id, fav_competitions.competition_id, address, competitions.name_competition FROM 
+            competitions JOIN fav_competitions ON competitions.id = fav_competitions.competition_id 
+            WHERE user_id = %s""", (user_id['id'],)
+        )
+        competitions = cursor.fetchall()
         cursor.close()
         return {
-            "message": "Fav added",
+            "message": "Favourite Competition Added",
+            "favourite_competitions": competitions
         }
-    else:
-        return { "message": "You can select max 3 favourite competitons only" }
+    cursor.close()
+    return { 
+            "message":"You can not add more than 3 competitions", 
+            "favourite_competitions": competitions
+        }
 
-
+# Password hashing and token generator
 def hash_cycle(usr_str):
     for i in range(10):
         usr_str = md5_hash(usr_str)

@@ -38,17 +38,23 @@ export default class Competitions extends Component {
                       <span className='small text-muted'>{end_date}</span>
                     </div>
                   </div>
-                  <p className='card-text'>Location:- {address}</p>
+                  <p className='card-text'>Location:- { address }</p>
                   <div className='d-flex justify-content-between'>
                     <button
                       // to={`/competition/${id}`} 
                       className='btn btn-primary' 
-                      value={id}
-                      onClick={this.props.getTeams}
+                      value={ id }
+                      onClick={ this.props.getTeams }
                     >
                       Details
                     </button>
-                    <button className='btn btn-primary'>Favourite</button>
+                    <button 
+                      className='btn btn-primary'
+                      onClick={ this.props.favouriteCompetition }
+                      value={ id }
+                    >
+                      Favourite
+                    </button>
                   </div>
                 </div>
               </div>
