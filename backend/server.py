@@ -74,6 +74,54 @@ def user_login():
     return {'message': 'Please Signup first', "error": True}
 
 
+# get competitons
+@app.route('/api/competitions', methods=['GET'])
+def competitions():
+    cursor = mysql.connection.cursor()
+    cursor.execute(
+        """SELECT * FROM competitions"""
+    )
+    results = cursor.fetchall()
+    cursor.close()
+    competitions = []
+    for competition in results:
+        competitions.append(competition)
+    return {"competitions": competition}
+
+
+# Get Teams Deatails
+@app.route('/api/teams', methods=['POST'])
+def get_teams():
+    user_id = token_decoder()
+    competition_id = request.json['competition_id']
+    cursor = mysql.connection.cursor()
+    cursor.execute(
+        """SELECT * FROM teams JOIN live_competitions ON live_competitions.team_id = teams.id where competition_id = 1"""
+    )
+    results = cursor.fetchall()
+    cursor.close()
+    teams = []
+    for team in results:
+        teams.append(team)
+    return { "teams": teams }
+
+# Get particular team details
+@app.route('/api/team', methods=['POST'])
+def team_detail():
+    user_id = token_decoder()
+    team_id = request.json['team_id']
+    cursor = mysql.connection.cursor()
+    cursor.execute(
+        """SELECT * FROM teams WHERE id = %s""", (str(team_id),)
+    )
+    team = cursor.fetchall()
+    cursor.close()
+    return {
+        "team": team
+    }
+
+
+
 def hash_cycle(usr_str):
     for i in range(10):
         usr_str = md5_hash(usr_str)
