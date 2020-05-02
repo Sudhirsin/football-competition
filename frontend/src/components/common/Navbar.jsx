@@ -21,11 +21,19 @@ function Navbar(props) {
       </h1>
       <ul>
         <li>
-          <Link to="/user/register">Register</Link>
+          <Link 
+            to="/user/register"
+            className="btn btn-outline-success text-dark"
+          >
+            Register
+          </Link>
         </li>
         <li>
           { props.isAuth ? <button className="btn btn-outline-danger" onClick={ logout }>Logout</button> :
-            <Link to="/user/login">Login</Link>
+            <Link 
+              to="/user/login"
+              className="btn btn-outline-success text-dark"
+            >Login</Link>
           }
           
         </li>

@@ -147,7 +147,7 @@ img {
 .landing {
   position: relative;
   background: url('https://images.unsplash.com/photo-1556476874-c98062c7027a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60') no-repeat center center/cover;
-  height: 100vh;
+  height: 120vh;
 }
 
 .landing-inner {

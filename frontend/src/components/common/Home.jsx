@@ -6,7 +6,6 @@ import Favourite from "./Favourite";
 import { connect } from 'react-redux'
 import { getCompetitions, makeFavouriteCompetition } from '../../redux/competitions/action'
 import { getTeams, getTeamDetails } from '../../redux/teams/action'
-import queryString from 'query-string'
 
 
 class Home extends Component {
@@ -52,7 +51,7 @@ class Home extends Component {
   }
 
   favouriteCompetition = async (e) => {
-    alert(e.target.value)
+    // alert(e.target.value)
     let obj = {
       competition_id: Number(e.target.value)
     }
@@ -70,7 +69,7 @@ class Home extends Component {
   }
 
   getTeamDetails = async (e) => {
-    alert(e.target.value)
+    // alert(e.target.value)
     let obj = {
       team_id: e.target.value
     }
