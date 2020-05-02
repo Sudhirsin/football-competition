@@ -13,6 +13,7 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
+        isFavouriteAdded: false,
         competitionImg: [
           {
             imgUrl: "/images/fifa.jpg"
@@ -55,13 +56,17 @@ class Home extends Component {
     let obj = {
       competition_id: Number(e.target.value)
     }
-
+    
     if(this.props.token) {
       await this.props.makeFavouriteCompetition(obj, this.props.token)
     } else {
       alert('Please login first')
       this.props.history.push('/user/login')
     }
+
+    this.setState({
+      isFavouriteAdded: true
+    })
   }
 
   getTeamDetails = async (e) => {
@@ -76,19 +81,36 @@ class Home extends Component {
 
     const { competitions, teams, fav_competitions } = this.props
 
+    const { isFavouriteAdded } = this.state
+
     return (
       <Fragment>
           {/* Landing Page */}
         <section className='landing'>
           <div className='dark-overlay'>
             <div className='landing-inner my-4'>
-              <h1 className='x-large'>Forever Play, Its Football Play</h1>
-              <p className='lead'>
-                “Little by little, I’m getting better all the time.
-                <br />
-                I’ve not lost the passion to play.”
-                <br />– Lionel Messi
-              </p>
+              { !isFavouriteAdded ? (
+                <div>
+                  <h1 className='x-large'>Forever Play, Its Football Play</h1>
+                  <p className='lead'>
+                    “Little by little, I’m getting better all the time.
+                    <br />
+                    I’ve not lost the passion to play.”
+                    <br />– Lionel Messi
+                  </p>
+                </div>
+              ) : (
+                <div className="row d-flex justify-content-center">
+                  { fav_competitions && fav_competitions.map(fav_comp => {
+                    return (
+                      <Favourite 
+                        fav_comp={ fav_comp }                  
+                      />
+                    )
+                  })}
+                
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -128,7 +150,7 @@ class Home extends Component {
         </section>
   
         {/* Favourite competitions */}
-        <div className="container">
+        {/* <div className="container">
             <div className="row">
                 { fav_competitions && fav_competitions.map(fav_comp => {
                   return (
@@ -139,7 +161,7 @@ class Home extends Component {
                 })}
                 
             </div>
-        </div>
+        </div> */}
   
         {/* Footer */}
         <Footer />

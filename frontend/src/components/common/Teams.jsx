@@ -40,7 +40,7 @@ export default class Teams extends Component {
                         <button 
                           onClick={ this.props.getTeamDetails }
                           value={ team.team_id }
-                          className='btn btn-outline-success'
+                          className='btn btn-outline-success mt-3'
                         >
                           Team Details
                         </button>
