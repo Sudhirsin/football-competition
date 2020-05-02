@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from 'react-router-dom'
 
 export default class Teams extends Component {
   render() {
@@ -33,12 +34,17 @@ export default class Teams extends Component {
                           </span>
                         </div>
                       </div>
-                      <button 
-                        className='btn btn-outline-success'
-                        onClick={ this.props.getTeamDetails }
+                      <Link 
+                        to={`/user/team_details/${team.team_id}`}
                       >
-                        Team Details
-                      </button>
+                        <button 
+                          onClick={ this.props.getTeamDetails }
+                          value={ team.team_id }
+                          className='btn btn-outline-success'
+                        >
+                          Team Details
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

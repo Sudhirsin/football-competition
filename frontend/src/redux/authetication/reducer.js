@@ -42,7 +42,7 @@ const authReducer = (state = initState, action) => {
         }
 
         case USER_LOGIN_SUCCESS: 
-            if (!action.payload.erro) {
+            if (!action.payload.error) {
                 return {
                     ...state,
                     isLoading: false,

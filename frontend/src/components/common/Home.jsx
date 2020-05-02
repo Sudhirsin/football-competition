@@ -5,7 +5,7 @@ import Teams from "./Teams";
 import Favourite from "./Favourite";
 import { connect } from 'react-redux'
 import { getCompetitions, makeFavouriteCompetition } from '../../redux/competitions/action'
-import { getTeams } from '../../redux/teams/action'
+import { getTeams, getTeamDetails } from '../../redux/teams/action'
 import queryString from 'query-string'
 
 
@@ -64,8 +64,12 @@ class Home extends Component {
     }
   }
 
-  getTeamDetails = () => {
-    alert('get details')
+  getTeamDetails = async (e) => {
+    alert(e.target.value)
+    let obj = {
+      team_id: e.target.value
+    }
+    await this.props.getTeamDetails(obj, this.props.token)
   }
 
   render() {
@@ -123,7 +127,7 @@ class Home extends Component {
           </div>
         </section>
   
-        {/* test */}
+        {/* Favourite competitions */}
         <div className="container">
             <div className="row">
                 { fav_competitions && fav_competitions.map(fav_comp => {

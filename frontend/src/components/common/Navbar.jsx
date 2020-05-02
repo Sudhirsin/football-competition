@@ -1,10 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { logoutUser } from '../../redux/authetication/action'
 
 
 function Navbar(props) {
+
+  const logout = () => {
+    console.log(props)
+    props.logoutUser() 
+    // props.history.push('/user/login')
+  }
 
   return (
     <nav className='navbar bg-dark'>
@@ -18,7 +24,7 @@ function Navbar(props) {
           <Link to="/user/register">Register</Link>
         </li>
         <li>
-          { props.isAuth ? <button className="btn btn-outline-danger" onClick={props.logoutUser}>Logout</button> :
+          { props.isAuth ? <button className="btn btn-outline-danger" onClick={ logout }>Logout</button> :
             <Link to="/user/login">Login</Link>
           }
           

@@ -4,19 +4,30 @@ import Navbar from '../components/common/Navbar'
 import Home from '../components/common/Home'
 import SignUp from '../components/auth/SignUp'
 import Login from '../components/auth/Login'
+import TeamDetails from '../components/common/TeamDetails';
+import { connect } from 'react-redux'
 
 
-function Routes() {
+function Routes(props) {
     return (
         <React.Fragment>
-            <Navbar />
+            <Navbar {...props } />
             <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/user/register" component={SignUp} />
-                <Route path="/user/login" component={Login} />
+                !props.isAuth ? (
+                    <Route exact path="/" component={(props) => <Home { ...props } />} />
+                    <Route path="/user/register" component={() => <SignUp /> } />
+                    <Route path="/user/login" component={(props) => <Login { ...props} />} />
+                ) : (
+                    <Route path="/user/team_details/:id" component={(props) => <TeamDetails { ...props } />} />
+
+                )
             </Switch>
         </React.Fragment>
     )
 }
 
-export default Routes
+const mapStateToProps = (state) => ({
+  isAuth: state.authReducer.isAuth  
+})
+
+export default connect(mapStateToProps, null)(Routes)
