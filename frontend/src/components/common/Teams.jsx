@@ -33,7 +33,10 @@ export default class Teams extends Component {
                           </span>
                         </div>
                       </div>
-                      <button className='btn btn-outline-success'>
+                      <button 
+                        className='btn btn-outline-success'
+                        onClick={ this.props.getTeamDetails }
+                      >
                         Team Details
                       </button>
                     </div>

@@ -1,7 +1,10 @@
 import {
     COMPETITIONS_REQUEST,
     COMPETITIONS_SUCCESS,
-    COMPETITIONS_FAILURE
+    COMPETITIONS_FAILURE,
+    FAV_COMPETITIONS_REQUEST,
+    FAV_COMPETITIONS_SUCCESS,
+    FAV_COMPETITIONS_FAILURE
 } from './actionTypes'
 
 
@@ -9,7 +12,7 @@ const initState = {
     isLoading: true,
     competitions: [],
     error: false,
-    token: ''
+    fav_competitions: []
 }
 
 const competionsReducer = (state = initState, action) => {
@@ -26,6 +29,23 @@ const competionsReducer = (state = initState, action) => {
             }
 
         case COMPETITIONS_FAILURE: return {
+            ...state,
+            isLoading: false,
+            error: true
+        }
+
+        case FAV_COMPETITIONS_REQUEST: return {
+            ...state,
+            isLoading: false,
+        }
+
+        case FAV_COMPETITIONS_SUCCESS: return {
+                ...state,
+                isLoading: false,
+                fav_competitions: action.payload.favourite_competitions
+            }
+
+        case FAV_COMPETITIONS_FAILURE: return {
             ...state,
             isLoading: false,
             error: true

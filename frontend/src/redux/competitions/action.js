@@ -60,10 +60,11 @@ export const favCompetitionsFailure = (error) => ({
 
 
 export const makeFavouriteCompetition = (payload, token) => {
+    console.log(payload, token)
     return dispatch => {
         dispatch(favCompetitionsRequest());
         return axios
-            .post('http://127.0.0.1:5000/api/users/competitions', payload, {
+            .post('http://127.0.0.1:5000/api/users/competitions', { ...payload }, {
                 headers: {
                     "Authorization": `bearer ${token}`,
                     "Content-Type": "application/json"

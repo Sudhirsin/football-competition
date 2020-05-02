@@ -122,7 +122,7 @@ def team_detail():
 
 
 # user favourite competitions
-@app.route('/api/users/competitions', methods=['GET', 'POST'])
+@app.route('/api/users/competitions', methods=['POST'])
 def fav_competitions():
     user_id = token_decoder()
     competition_id = request.json['competition_id']
@@ -137,7 +137,7 @@ def fav_competitions():
         for data in competitions:
             if data["competition_id"] == competition_id:
                 return {
-                    "messasge": "Already marked favourite",
+                    "message": "Already marked favourite",
                     "favourite_competitions":competitions
                 }
         cursor.execute(

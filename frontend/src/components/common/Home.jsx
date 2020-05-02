@@ -51,8 +51,9 @@ class Home extends Component {
   }
 
   favouriteCompetition = async (e) => {
+    alert(e.target.value)
     let obj = {
-      competition_id: e.target.value
+      competition_id: Number(e.target.value)
     }
 
     if(this.props.token) {
@@ -63,9 +64,13 @@ class Home extends Component {
     }
   }
 
+  getTeamDetails = () => {
+    alert('get details')
+  }
+
   render() {
 
-    const { competitions, teams } = this.props
+    const { competitions, teams, fav_competitions } = this.props
 
     return (
       <Fragment>
@@ -109,6 +114,7 @@ class Home extends Component {
                   return (
                     <Teams 
                       team={ team }
+                      getTeamDetails={ this.getTeamDetails }
                     />
                   )
                 })}
@@ -120,15 +126,20 @@ class Home extends Component {
         {/* test */}
         <div className="container">
             <div className="row">
-                <Favourite />
-                <Favourite />
-                <Favourite />
+                { fav_competitions && fav_competitions.map(fav_comp => {
+                  return (
+                    <Favourite 
+                      fav_comp={ fav_comp }                  
+                    />
+                  )
+                })}
+                
             </div>
         </div>
-        {/* test */}
   
         {/* Footer */}
         <Footer />
+
       </Fragment>
     );
   }
@@ -137,13 +148,15 @@ class Home extends Component {
 const mapStateToProps = (state) => ({
   competitions: state.competitionsReducer.competitions,
   token: state.authReducer.token,
-  teams: state.teamsReducer.teams
+  teams: state.teamsReducer.teams,
+  fav_competitions: state.competitionsReducer.fav_competitions
 })
 
 const mapDispatchToProps = dispatch => ({
   getCompetitions: () => dispatch(getCompetitions()),
   getTeams: (payload, token) => dispatch(getTeams(payload, token)),
-  makeFavouriteCompetition: (payload, token) => dispatch(makeFavouriteCompetition(payload, token))
+  makeFavouriteCompetition: (payload, token) => dispatch(makeFavouriteCompetition(payload, token)),
+  getTeamDetails: (payload, token) => dispatch(getTeamDetails(payload, token)) 
 })
 
 

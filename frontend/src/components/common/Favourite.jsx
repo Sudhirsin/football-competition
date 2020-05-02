@@ -1,6 +1,9 @@
 import React, { Fragment } from "react";
 
-function Favourite() {
+function Favourite(props) {
+
+  const { fav_comp } = props
+  console.log(fav_comp)
   return (
     <div className='col-lg-4 col-sm-12'>
       <div class='card' style={{width: "250px", height: "250px", borderRadius: "50%"}}>
@@ -8,12 +11,12 @@ function Favourite() {
           <p>
             <img
               class=' img-fluid'
-              src='https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png'
+              src='https://images.unsplash.com/photo-1529510078431-fefe4d9d8aab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
               alt='card image'
               style={{width:"80px", height: "80px"}}
             />
           </p>
-          <h4 class='card-title'>Sunlimetech</h4>
+          <h4 class='card-title'>{ fav_comp.name_competition }</h4>
           {/* <p class='card-text'>
             This is basic card wih image on top, title, description and button.
           </p> */}
